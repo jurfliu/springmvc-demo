@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 配置spring创建容器时要扫描的包 -->
+    <context:component-scan base-package="com.ljf.spring.mvc.demo">
+        <!--  只扫描controller层
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        -->
+        <!--  排除不扫描controller层
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+   -->
+    </context:component-scan>
+    <!-- 配置视图解析器 -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>
+   <!--  配置 controller返回对象 ，集合 自动转成json串 的处理映射器，和 <mvc:annotation-driven></mvc:annotation-driven> 注解驱动 实现相同功能
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"></bean>
+            </list>
+        </property>
+    </bean>
+      -->
+    <!--
+    在spring mvc的各个组件种，处理器映射器、处理器适配器、视图解析器成为spring mvc的三大组件
+    <mvc:annotation-driven> Spring MVC用来提供Controller请求转发，json自动转换等功能
+    默认底层会集成jackson进行对象或集合的json格式字符串的转换，且使用它时候，自动加载ReuestMappingHandlerMapping(处理映射器)
+    和RequestMappingHandlerAdapter(处理适配器)，在spirng-xml的配置文件中使用<mvc:annotation-driven>替代注解处理器和适配器的配置
+       和上面的bean标签 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+       具有相同功能
+    -->
+    <!-- spring mvc 的注解驱动-->
+    <mvc:annotation-driven></mvc:annotation-driven>
+</beans>
