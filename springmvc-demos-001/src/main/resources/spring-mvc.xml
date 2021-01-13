@@ -42,6 +42,23 @@ http://www.springframework.org/schema/context/spring-context.xsd">
        和上面的bean标签 <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
        具有相同功能
     -->
+    <!-- 配置声明转换器 -->
+    <bean id="cs" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <bean class="com.ljf.spring.mvc.demo.convter.DateConvter"></bean>
+            </list>
+        </property>
+    </bean>
     <!-- spring mvc 的注解驱动-->
-    <mvc:annotation-driven></mvc:annotation-driven>
+    <mvc:annotation-driven conversion-service="cs"></mvc:annotation-driven>
+    <!--spring mvc 开发对静态资源的访问权限  mapping为访问的路径， location为真实文件的存放的路径-->
+    <!--js-->
+    <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>
+    <mvc:resources mapping="/images/**" location="/images/"></mvc:resources>
+    <mvc:resources mapping="/css/**" location="/css/"></mvc:resources>
+  <!--  等价于上面 mvc：resouces -->
+    <mvc:default-servlet-handler></mvc:default-servlet-handler>
+
+
 </beans>

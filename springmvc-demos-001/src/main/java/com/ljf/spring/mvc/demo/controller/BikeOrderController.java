@@ -3,9 +3,13 @@ package com.ljf.spring.mvc.demo.controller;
 import com.ljf.spring.mvc.demo.bean.User;
 import com.ljf.spring.mvc.demo.bean.Vo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,5 +86,116 @@ public class BikeOrderController {
          System.out.println("user:"+u.getUserName());
      }
         return "ok";
+    }
+    /**
+     * @author liujianfu
+     * @description      controller中业务方法的集合参数获取，要将集合参数封装到一个pojo中才可以
+     * 参数属性名与请求参数名称一致，参数值会自动映射匹配
+     * @date 2021/1/10 22:14
+     * @param
+     * @return
+     */
+    @RequestMapping("/bike6")
+    public String bike6(){
+      System.out.println("controller6:::::::");
+        return "ajax";
+    }
+    /**
+     * @author liujianfu
+     * @description      controller中业务方法的集合参数获取，要将集合参数封装到一个pojo中才可以
+     * 参数属性名与请求参数名称一致，参数值会自动映射匹配
+     * @date 2021/1/10 22:14
+     * @param
+     * @return
+     */
+    @RequestMapping("/bike7")
+    @ResponseBody
+    public String bike7(@RequestBody List<User> userList){
+        for(User u:userList){
+            System.out.println("user:"+u.getUserName());
+        }
+        return "ok";
+    }
+    /**
+     * @author liujianfu
+     * @description      参数绑定注解@requestParam
+     *                   value ：与请求参数名称
+     *                   required:  此在制定的请求参数是否必须包括，默认true，提交参数如果没有则报错
+     *                   defaultvalue 当没有制定请求参数时，则使用制定的默认值赋值。
+     * 参数属性名与请求参数名称一致，参数值会自动映射匹配
+     * @date 2021/1/10 22:14
+     * @param
+     * @return
+     */
+    @RequestMapping("/bike8")
+    @ResponseBody
+    public String bike8(@RequestParam(value="name",required = false,defaultValue = "ljf") String username){
+        System.out.println("username:"+username);
+        return "ok";
+    }
+    /**
+     * @author liujianfu
+     * @description      参数绑定注解@requestParam
+     *                   value ：与请求参数名称
+     *                   required:  此在制定的请求参数是否必须包括，默认true，提交参数如果没有则报错
+     *                   defaultvalue 当没有制定请求参数时，则使用制定的默认值赋值。
+     * 参数属性名与请求参数名称一致，参数值会自动映射匹配
+     * @date 2021/1/10 22:14
+     * @param
+     * @return
+     */
+    @RequestMapping("/bike9/{pname}")
+    @ResponseBody
+    public String bike9(@PathVariable(value="pname",required = false) String username){
+        System.out.println("username:"+username);
+        return "ok";
+    }
+    /**
+      * @param
+     * @return
+             */
+    @RequestMapping("/bike10")
+    @ResponseBody
+    public String bike10(Date date){
+        System.out.println("date:"+date);
+        return "ok";
+    }
+    /**
+     * @param
+     * @return
+     */
+    @RequestMapping("/bike11")
+    @ResponseBody
+    public String bike11(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+        System.out.println("request:"+request);
+        System.out.println("reponse:"+response);
+        System.out.println("session:"+session);
+        String s=request+" "+response+" "+session;
+        return s;
+    }
+    /**
+     * @param       @RequestHeader注解  可以获得请求头的信息  相当于  request.getHeader(name);
+     *           value: 请求头的名称；required ： 是否必须携带此请求头
+     * @return
+     */
+    @RequestMapping("/bike12")
+    @ResponseBody
+    public String bike12(@RequestHeader(value="USER-AGENT",required=false ) String header){
+
+        String s=header;
+        return s;
+    }
+    /**
+     * @param       @RequestHeader注解  可以获得请求头的信息  相当于  request.getHeader(name);
+     *           value: 请求头的名称；required ： 是否必须携带此请求头
+     * @return
+     */
+    @RequestMapping("/bike13")
+    @ResponseBody
+    public String bike13(@CookieValue(value = "JESSSIONID") String cookieId){
+
+        String s=cookieId;
+        System.out.println("s:"+s);
+        return s;
     }
 }
