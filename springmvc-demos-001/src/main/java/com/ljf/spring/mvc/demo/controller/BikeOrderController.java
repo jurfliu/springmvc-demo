@@ -4,11 +4,14 @@ import com.ljf.spring.mvc.demo.bean.User;
 import com.ljf.spring.mvc.demo.bean.Vo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -197,5 +200,51 @@ public class BikeOrderController {
         String s=cookieId;
         System.out.println("s:"+s);
         return s;
+    }
+    /**
+     *       跳转到upload页面
+     * @return
+     */
+    @RequestMapping("/upload")
+    public String bike14(){
+     System.out.println("upload:");
+        return "upload";
+    }
+    /**
+     *       跳转到upload页面
+     * @return
+     */
+    @RequestMapping("/uploadFile")
+    @ResponseBody
+    public void bike15(String userName, MultipartFile uploadFile) throws IOException {
+        System.out.println("upload:");
+        //带有file路径的文件名称
+       String fileName= uploadFile.getOriginalFilename();
+       uploadFile.transferTo(new File("d:\\upload\\"+fileName));
+    }
+    /**
+     *       跳转到upload页面
+     * @return
+     */
+    @RequestMapping("/uploads")
+    public String bike15(){
+        System.out.println("uploads:");
+        return "uploads";
+    }
+    /**
+     *       跳转到upload页面
+     * @return
+     */
+    @RequestMapping("/uploadFiles")
+    @ResponseBody
+    public void bike16(String userName, MultipartFile uploadFiles[]) throws IOException {
+        System.out.println("uploads:");
+        //带有file路径的文件名称
+        for(MultipartFile uploadFile:uploadFiles){
+            String fileName= uploadFile.getOriginalFilename();
+            uploadFile.transferTo(new File("d:\\upload\\"+fileName));
+        }
+        System.out.println("上传完成!!!");
+
     }
 }

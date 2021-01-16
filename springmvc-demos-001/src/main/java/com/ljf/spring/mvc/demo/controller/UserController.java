@@ -36,4 +36,5 @@ public class UserController {
         return "forward:/WEB-INF/pages/success.jsp";
     }
 
+
 }
