@@ -96,19 +96,32 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         </mvc:interceptor>
     </mvc:interceptors>
     -->
-    <!--配置拦截器   -->
-    <mvc:interceptors>
-        <!--配置拦截器 -->
-        <mvc:interceptor>
+    <!--配置拦截器
+    <mvc:interceptors> -->
+        <!--配置拦截器
+        <mvc:interceptor> -->
             <!--要拦截的具体的方法-->
             <!--  /* 一级    /** 所有级   /city/*  二级   -->
-            <!--配置对哪些资源执行拦截操作-->
-            <mvc:mapping path="/**"/>
+            <!--配置对哪些资源执行拦截操作
+            <mvc:mapping path="/**"/> -->
             <!--不要拦截的方法  用户登录提交的请求，放行 -->
-            <!--配置哪些资源排除拦截操作-->
-            <mvc:exclude-mapping path="/login/toLogin"/>
-            <!--配置拦截器对象- -->
+            <!--配置哪些资源排除拦截操作
+            <mvc:exclude-mapping path="/login/toLogin"/> -->
+            <!--配置拦截器对象-
             <bean class="com.ljf.spring.mvc.demo.config.LoignIntercepter" />
         </mvc:interceptor>
-    </mvc:interceptors>
+    </mvc:interceptors>  -->
+    <!--
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+     <property name="defaultErrorView" value="error"></property>
+        <property name="exceptionMappings">
+            <map>
+               空指针异常
+                <entry key="java.lang.NullPointerException" value="exception_demo"></entry>
+            </map>
+        </property>
+
+    </bean> -->
+     <!--自定义异常处理器 -->
+    <bean class="com.ljf.spring.mvc.demo.controller.MyExceptionController"></bean>
 </beans>
