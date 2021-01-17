@@ -70,29 +70,45 @@ http://www.springframework.org/schema/context/spring-context.xsd">
          <property name="defaultEncoding" value="utf-8"></property>
      </bean>
 
-    <!--配置拦截器-->
-    <mvc:interceptors>
-        <!--配置拦截器-->
-        <mvc:interceptor>
+    <!--配置拦截器
+    <mvc:interceptors> -->
+        <!--配置拦截器
+        <mvc:interceptor>-->
             <!--要拦截的具体的方法-->
-            <!--  /* 一级    /** 所有级   /city/*  二级  -->
-            <mvc:mapping path="/city/*"/>
+            <!--  /* 一级    /** 所有级   /city/*  二级
+            <mvc:mapping path="/city/*"/> -->
             <!--不要拦截的方法
             <mvc:exclude-mapping path=""/>
             -->
-            <!--配置拦截器对象-->
+            <!--配置拦截器对象
             <bean class="com.ljf.spring.mvc.demo.config.MyDefinedIntercepter" />
-        </mvc:interceptor>
+        </mvc:interceptor>-->
 
-        <!--配置第二个拦截器-->
-        <mvc:interceptor>
-            <!--要拦截的具体的方法-->
-            <mvc:mapping path="/city/*"/>
+        <!--配置第二个拦截器
+        <mvc:interceptor> -->
+            <!--要拦截的具体的方法
+            <mvc:mapping path="/city/*"/> -->
             <!--不要拦截的方法
             <mvc:exclude-mapping path=""/>
             -->
-            <!--配置拦截器对象-->
+            <!--配置拦截器对象
             <bean class="com.ljf.spring.mvc.demo.config.MyDefinedIntercepter2" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+    -->
+    <!--配置拦截器   -->
+    <mvc:interceptors>
+        <!--配置拦截器 -->
+        <mvc:interceptor>
+            <!--要拦截的具体的方法-->
+            <!--  /* 一级    /** 所有级   /city/*  二级   -->
+            <!--配置对哪些资源执行拦截操作-->
+            <mvc:mapping path="/**"/>
+            <!--不要拦截的方法  用户登录提交的请求，放行 -->
+            <!--配置哪些资源排除拦截操作-->
+            <mvc:exclude-mapping path="/login/toLogin"/>
+            <!--配置拦截器对象- -->
+            <bean class="com.ljf.spring.mvc.demo.config.LoignIntercepter" />
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>
